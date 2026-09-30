@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Traditional CSS</title>
+    <style>
+        body { background: #f3f4f6; font-family: Arial, sans-serif; }
+        .card {
+            max-width: 320px;
+            margin: 40px auto;
+            padding: 24px;
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+        }
+        .card-title { font-size: 24px; font-weight: bold; color: #1e3a8a; margin: 0 0 8px; }
+        .card-text  { color: #4b5563; margin: 0 0 16px; }
+        .card-btn {
+            background: #2563eb;
+            color: #ffffff;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+        .card-btn:hover { background: #1d4ed8; }
+
+        @media (min-width: 768px) {
+            .card { max-width: 480px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <h2 class="card-title">Admissions Open</h2>
+        <p class="card-text">Apply now for the 2026-27 academic year.</p>
+        <button class="card-btn">Apply Now</button>
+    </div>
+</body>
+</html>
