@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Study Planner</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-gray-100 min-h-screen">
+
+    <!-- Header -->
+    <header class="bg-blue-600 text-white py-6 text-center">
+        <h1 class="text-3xl font-bold">Student Study Planner</h1>
+        <p class="mt-2">Organize your academic tasks easily</p>
+    </header>
+
+    <!-- Main Section -->
+    <main class="max-w-5xl mx-auto px-5 py-8">
+
+        <!-- Add Task Form -->
+        <div class="bg-white p-6 rounded-xl shadow-md mb-8">
+
+            <h2 class="text-2xl font-bold text-gray-800 mb-5">
+                Add Study Task
+            </h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+
+                <input
+                    type="text"
+                    id="taskInput"
+                    placeholder="Enter task"
+                    class="border rounded-lg px-4 py-3 focus:outline-none
+                           focus:ring-2 focus:ring-blue-500"
+                >
+
+                <select
+                    id="subjectInput"
+                    class="border rounded-lg px-4 py-3 focus:outline-none
+                           focus:ring-2 focus:ring-blue-500"
+                >
+                    <option value="">Select Subject</option>
+                    <option value="Data Structures">Data Structures</option>
+                    <option value="JavaScript">JavaScript</option>
+                    <option value="Database">Database</option>
+                    <option value="Mathematics">Mathematics</option>
+                </select>
+
+                <button
+                    id="addTask"
+                    class="bg-blue-600 text-white rounded-lg px-5 py-3
+                           hover:bg-blue-700"
+                >
+                    Add Task
+                </button>
+
+            </div>
+        </div>
+
+        <!-- Task Statistics -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
+
+            <div class="bg-white p-5 rounded-xl shadow text-center">
+                <h3 class="text-gray-500">Total Tasks</h3>
+                <p id="totalTasks" class="text-3xl font-bold text-blue-600">0</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl shadow text-center">
+                <h3 class="text-gray-500">Completed</h3>
+                <p id="completedTasks" class="text-3xl font-bold text-green-600">0</p>
+            </div>
+
+            <div class="bg-white p-5 rounded-xl shadow text-center">
+                <h3 class="text-gray-500">Pending</h3>
+                <p id="pendingTasks" class="text-3xl font-bold text-red-600">0</p>
+            </div>
+
+        </div>
+
+        <!-- Task List -->
+        <div class="bg-white p-6 rounded-xl shadow-md">
+
+            <h2 class="text-2xl font-bold text-gray-800 mb-5">
+                My Study Tasks
+            </h2>
+
+            <div id="taskList" class="space-y-3"></div>
+
+            <p id="emptyMessage" class="text-center text-gray-500">
+                No study tasks added yet.
+            </p>
+
+        </div>
+
+    </main>
+
+    <script>
+        const taskInput = document.getElementById("taskInput");
+        const subjectInput = document.getElementById("subjectInput");
+        const addTask = document.getElementById("addTask");
+        const taskList = document.getElementById("taskList");
+        const emptyMessage = document.getElementById("emptyMessage");
+
+        const totalTasks = document.getElementById("totalTasks");
+        const completedTasks = document.getElementById("completedTasks");
+        const pendingTasks = document.getElementById("pendingTasks");
+
+        // Add task
+        addTask.addEventListener("click", function() {
+
+            const task = taskInput.value.trim();
+            const subject = subjectInput.value;
+
+            if (task === "" || subject === "") {
+                alert("Please enter a task and select a subject.");
+                return;
+            }
+
+            createTask(task, subject);
+
+            taskInput.value = "";
+            subjectInput.value = "";
+
+            updateStatistics();
+        });
+
+        // Create task
+        function createTask(task, subject) {
+
+            const taskItem = document.createElement("div");
+
+            taskItem.className =
+                "flex flex-col sm:flex-row sm:items-center " +
+                "justify-between gap-3 p-4 border rounded-lg " +
+                "bg-gray-50";
+
+            const taskInfo = document.createElement("div");
+
+            const taskName = document.createElement("h3");
+
+            taskName.textContent = task;
+
+            taskName.className =
+                "font-semibold text-gray-800";
+
+            const taskSubject = document.createElement("p");
+
+            taskSubject.textContent = "Subject: " + subject;
+
+            taskSubject.className =
+                "text-sm text-gray-500";
+
+            taskInfo.appendChild(taskName);
+            taskInfo.appendChild(taskSubject);
+
+            // Complete button
+            const completeButton = document.createElement("button");
+
+            completeButton.textContent = "Complete";
+
+            completeButton.className =
+                "bg-green-500 text-white px-4 py-2 rounded-lg " +
+                "hover:bg-green-600";
+
+            completeButton.addEventListener("click", function() {
+
+                taskName.classList.toggle("line-through");
+                taskName.classList.toggle("text-gray-400");
+
+                if (taskName.classList.contains("line-through")) {
+                    completeButton.textContent = "Completed";
+                    completeButton.classList.remove("bg-green-500");
+                    completeButton.classList.add("bg-gray-500");
+                } else {
+                    completeButton.textContent = "Complete";
+                    completeButton.classList.remove("bg-gray-500");
+                    completeButton.classList.add("bg-green-500");
+                }
+
+                updateStatistics();
+            });
+
+            // Delete button
+            const deleteButton = document.createElement("button");
+
+            deleteButton.textContent = "Delete";
+
+            deleteButton.className =
+                "bg-red-500 text-white px-4 py-2 rounded-lg " +
+                "hover:bg-red-600";
+
+            deleteButton.addEventListener("click", function() {
+                taskItem.remove();
+                updateStatistics();
+            });
+
+            const buttons = document.createElement("div");
+
+            buttons.className = "flex gap-2";
+
+            buttons.appendChild(completeButton);
+            buttons.appendChild(deleteButton);
+
+            taskItem.appendChild(taskInfo);
+            taskItem.appendChild(buttons);
+
+            taskList.appendChild(taskItem);
+
+            emptyMessage.style.display = "none";
+        }
+
+        // Update statistics
+        function updateStatistics() {
+
+            const tasks = taskList.children;
+
+            let total = tasks.length;
+            let completed = 0;
+
+            for (let task of tasks) {
+
+                const taskName = task.querySelector("h3");
+
+                if (taskName.classList.contains("line-through")) {
+                    completed++;
+                }
+            }
+
+            totalTasks.textContent = total;
+            completedTasks.textContent = completed;
+            pendingTasks.textContent = total - completed;
+
+            if (total === 0) {
+                emptyMessage.style.display = "block";
+            } else {
+                emptyMessage.style.display = "none";
+            }
+        }
+    </script>
+
+</body>
+</html>
