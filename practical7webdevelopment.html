@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>College FAQ Portal</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f5f9;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 700px;
+            margin: auto;
+        }
+
+        h1 {
+            text-align: center;
+            color: #1f2937;
+            margin-bottom: 30px;
+        }
+
+        .faq {
+            background-color: white;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px #ccc;
+            overflow: hidden;
+        }
+
+        .question {
+            width: 100%;
+            padding: 18px;
+            border: none;
+            background-color: #2563eb;
+            color: white;
+            font-size: 17px;
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .question:hover {
+            background-color: #1d4ed8;
+        }
+
+        .answer {
+            display: none;
+            padding: 18px;
+            color: #444;
+            line-height: 1.6;
+        }
+
+        .answer.show {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Student Help Portal - FAQ</h1>
+
+        <div class="faq">
+            <button class="question">
+                What are the college working hours?
+            </button>
+            <div class="answer">
+                The college working hours are generally from 9:00 AM to 5:00 PM
+                from Monday to Friday.
+            </div>
+        </div>
+
+        <div class="faq">
+            <button class="question">
+                How can I apply for an examination?
+            </button>
+            <div class="answer">
+                Students can apply for examinations through the college examination
+                portal before the announced deadline.
+            </div>
+        </div>
+
+        <div class="faq">
+            <button class="question">
+                Where can I check my attendance?
+            </button>
+            <div class="answer">
+                Students can check their attendance through the student portal
+                using their college login credentials.
+            </div>
+        </div>
+
+        <div class="faq">
+            <button class="question">
+                How can I contact the department?
+            </button>
+            <div class="answer">
+                Students can contact the department office or email the department
+                using the official college contact details.
+            </div>
+        </div>
+
+        <div class="faq">
+            <button class="question">
+                Where can I get study materials?
+            </button>
+            <div class="answer">
+                Study materials can be obtained from the department portal,
+                learning management system, or respective subject teachers.
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const questions = document.querySelectorAll(".question");
+
+        questions.forEach(function(question) {
+            question.addEventListener("click", function() {
+
+                const answer = this.nextElementSibling;
+
+                answer.classList.toggle("show");
+            });
+        });
+    </script>
+
+</body>
+</html>
