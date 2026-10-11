@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Registration Form</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f5f9;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 400px;
+            max-width: 100%;
+            margin: auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px #aaa;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+            color: #444;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 11px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #2563eb;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1d4ed8;
+        }
+
+        .error {
+            color: red;
+            font-size: 13px;
+            margin-top: 4px;
+        }
+
+        .success {
+            color: green;
+            text-align: center;
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Student Registration</h1>
+
+        <form id="registrationForm">
+
+            <label for="name">Full Name</label>
+            <input type="text" id="name" placeholder="Enter your name">
+            <div id="nameError" class="error"></div>
+
+            <label for="email">Email</label>
+            <input type="text" id="email" placeholder="Enter your email">
+            <div id="emailError" class="error"></div>
+
+            <label for="password">Password</label>
+            <input type="password" id="password" placeholder="Enter password">
+            <div id="passwordError" class="error"></div>
+
+            <label for="mobile">Mobile Number</label>
+            <input type="text" id="mobile" placeholder="Enter 10-digit mobile number">
+            <div id="mobileError" class="error"></div>
+
+            <label for="course">Course</label>
+            <select id="course">
+                <option value="">Select Course</option>
+                <option value="CSE">Computer Science</option>
+                <option value="DS">Data Science</option>
+                <option value="IT">Information Technology</option>
+                <option value="ECE">Electronics</option>
+            </select>
+            <div id="courseError" class="error"></div>
+
+            <button type="submit">Register</button>
+
+            <div id="successMessage" class="success"></div>
+
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById("registrationForm");
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            let name = document.getElementById("name").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let password = document.getElementById("password").value;
+            let mobile = document.getElementById("mobile").value.trim();
+            let course = document.getElementById("course").value;
+
+            let valid = true;
+
+            document.getElementById("nameError").textContent = "";
+            document.getElementById("emailError").textContent = "";
+            document.getElementById("passwordError").textContent = "";
+            document.getElementById("mobileError").textContent = "";
+            document.getElementById("courseError").textContent = "";
+            document.getElementById("successMessage").textContent = "";
+
+            // Mandatory Name Validation
+            if (name === "") {
+                document.getElementById("nameError").textContent =
+                    "Name is required.";
+                valid = false;
+            }
+
+            // Email Validation
+            let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (email === "") {
+                document.getElementById("emailError").textContent =
+                    "Email is required.";
+                valid = false;
+            } else if (!emailPattern.test(email)) {
+                document.getElementById("emailError").textContent =
+                    "Enter a valid email address.";
+                valid = false;
+            }
+
+            // Password Validation
+            if (password === "") {
+                document.getElementById("passwordError").textContent =
+                    "Password is required.";
+                valid = false;
+            } else if (password.length < 6) {
+                document.getElementById("passwordError").textContent =
+                    "Password must be at least 6 characters.";
+                valid = false;
+            }
+
+            // Mobile Number Validation
+            let mobilePattern = /^[0-9]{10}$/;
+
+            if (mobile === "") {
+                document.getElementById("mobileError").textContent =
+                    "Mobile number is required.";
+                valid = false;
+            } else if (!mobilePattern.test(mobile)) {
+                document.getElementById("mobileError").textContent =
+                    "Enter a valid 10-digit mobile number.";
+                valid = false;
+            }
+
+            // Course Validation
+            if (course === "") {
+                document.getElementById("courseError").textContent =
+                    "Please select a course.";
+                valid = false;
+            }
+
+            // Successful Submission
+            if (valid) {
+                document.getElementById("successMessage").textContent =
+                    "Registration successful!";
+                form.reset();
+            }
+        });
+    </script>
+
+</body>
+</html>
